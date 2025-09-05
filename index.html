@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Pokédex</title>
+<link rel="shortcut icon" href="favicon/poke-favicon.png" type="image/x-icon">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles/overlay.css">
+<link rel="stylesheet" href="styles/responsive.css">
+<link rel="stylesheet" href="styles/standard.css">
+
+</head>
+<body onload="init()">
+
+<header class="header">
+    <h1>POKÉDEX</h1>
+    <input id="search" placeholder="search pokemon ...." />
+</header>
+
+<main>
+  <div class="container" id="grid"></div>
+  <div class="loadmore"><button id="loadMore" class="btn">load more</button></div>
+</main>
+
+<div id="overlay" class="overlay">
+  <div class="overlay-card" id="overlayCard">
+    <button class="close" id="closeBtn">✕</button>
+    <button class="navbtn left" id="prevBtn">◀</button>
+    <button class="navbtn right" id="nextBtn">▶</button>
+    <div class="overlay-main">
+      <div id="overlayLeft">
+        <img id="overlayImg" src="" alt="pokemon"/>
+      </div>
+      <div id="overlayRight">
+        <h2 id="overlayTitle"></h2>
+        <div id="overlayTypes" class="types"></div>
+        <div class="tabs">
+          <div class="tab-buttons">
+            <button data-tab="main">Main</button>
+            <button data-tab="stats">Stats</button>
+            <button data-tab="evo">Evo Chain</button>
+          </div>
+          <div class="tab-content" id="tabContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Florian Narr 2025</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
