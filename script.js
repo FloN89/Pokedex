@@ -60,3 +60,41 @@ function searchHandler() {
     card.style.display = (query.length < 3 || name.includes(query)) ? "block" : "none";
   });
 }
+
+async function openOverlay(id) {
+  currentPokemonId = Number(id);
+  let pokemon = await fetchDetails(currentPokemonId);
+  showModalData(pokemon);
+  document.getElementById("overlay").classList.add("show");
+}
+
+function closeOverlay() {
+  document.getElementById("overlay").classList.remove("show");
+  currentPokemonId = null;
+}
+
+function showModalData(pokemon) {
+  let img = pokemon.sprites.other["official-artwork"].front_default
+      pokemon.sprites.front_default;
+  document.getElementById("overlayImg").src = img;
+  document.getElementById("overlayTitle").textContent =
+    `#${pokemon.id} ${capitalize(pokemon.name)}`;
+  document.getElementById("overlayTypes").innerHTML =
+    pokemon.types.map(typeInfo => `<div class="type">${typeInfo.type.name}</div>`).join("");
+  renderTab("main", pokemon);
+}
+
+function prevNext(direction) {
+  if (!currentPokemonId) return;
+  let index = visibleIDs.indexOf(currentPokemonId);
+  if (index === -1) return;
+  index = (index + direction + visibleIDs.length) % visibleIDs.length;
+  openOverlay(visibleIDs[index]);
+}
+
+async function renderTab(tab, pokemon) {
+  let tabContent = document.getElementById("tabContent");
+  if (tab === "main") renderMainTab(tabContent, pokemon);
+  else if (tab === "stats") renderStatsTab(tabContent, pokemon);
+  else if (tab === "evo") await renderEvoTab(tabContent, pokemon);
+}
