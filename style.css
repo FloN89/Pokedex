@@ -43,6 +43,7 @@
     display:flex;
     justify-content: center;
     gap:18px;
+    padding-top: 32px;
 }
 
 .type{
