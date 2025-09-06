@@ -158,3 +158,23 @@ async function buildEvoElement(name) {
   element.innerHTML = `<img src="${img}" /><div class="small" style="text-transform:capitalize">${name}</div>`;
   return element;
 }
+
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+document.getElementById("loadMore").addEventListener("click", renderChunk);
+document.getElementById("search").addEventListener("input", searchHandler);
+document.getElementById("closeBtn").addEventListener("click", closeOverlay);
+document.getElementById("prevBtn").addEventListener("click", () => prevNext(-1));
+document.getElementById("nextBtn").addEventListener("click", () => prevNext(1));
+document.getElementById("overlay").addEventListener("click", event => {
+  if (event.target.id === "overlay") closeOverlay();
+});
+document.querySelectorAll(".tab-buttons button").forEach(button => {
+  button.addEventListener("click", async event => {
+    let tab = event.target.dataset.tab;
+    let pokemon = await fetchDetails(currentPokemonId || visibleIDs[0]);
+    renderTab(tab, pokemon);
+  });
+});
