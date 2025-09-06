@@ -178,3 +178,8 @@ document.querySelectorAll(".tab-buttons button").forEach(button => {
     renderTab(tab, pokemon);
   });
 });
+
+async function init() {
+  await loadList();
+  await renderChunk();
+}
