@@ -66,11 +66,13 @@ async function openOverlay(id) {
   let pokemon = await fetchDetails(currentPokemonId);
   showModalData(pokemon);
   document.getElementById("overlay").classList.add("show");
+  document.body.style.overflow = "hidden"; 
 }
 
 function closeOverlay() {
   document.getElementById("overlay").classList.remove("show");
   currentPokemonId = null;
+  document.body.style.overflow = "auto";
 }
 
 function showModalData(pokemon) {

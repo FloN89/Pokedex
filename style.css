@@ -12,6 +12,10 @@
     height: 32px;
     width: 230px;
 }
+.header img{
+    height: 40px;
+    width: 40px;
+}
 
 .container{
     max-width:1100px;
