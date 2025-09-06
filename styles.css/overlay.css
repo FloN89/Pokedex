@@ -1,0 +1,93 @@
+.overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    backdrop-filter:blur(6px);
+}
+.overlay.show{
+    display:flex;
+}
+.overlay-card{
+    width:min(700px,95%);
+    background:#053662;
+    border-radius:8px;
+    padding:18px;
+    position:relative;
+}
+.navbtn{
+    position:absolute;
+    top:50%;transform:translateY(-50%);
+    background:transparent;
+    border:none;
+    color: white;
+    font-size:28px;
+    cursor:pointer;
+}
+.navbtn.left{
+    left:-50px;
+}
+.navbtn.right{
+    right:-50px;
+}
+.close{
+    border: 2px solid;
+    position:absolute;
+    right:14px;
+    top:10px;
+    background:transparent;
+    padding:6px;
+    border-radius:8px;
+    cursor:pointer;
+    color: white;
+}
+.overlay-main{
+    display:flex;
+    gap:18px;
+}
+.overlay-main img{
+    width:180px;
+    height:180px;
+}
+.tabs{
+    margin-top:10px;
+}
+.tab-buttons{
+    display:flex;
+    gap:8px;
+}
+.tab-buttons button{
+    background:transparent;
+    border:2px solid;
+    padding:8px;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+}
+.tab-content{
+    margin-top:12px
+}
+.statbar{
+    height:12px;
+    background:rgba(255,255,255,0.06);
+    border-radius:8px;
+    overflow:hidden;
+}
+.statfill{
+    height:100%;
+    border-radius:8px;
+    background-color: rgb(30, 30, 162);
+}
+.evos{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+.evos img{
+    width:80px;
+    height:80px;
+}
+.small{
+    font-size:16px;
+}
