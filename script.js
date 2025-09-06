@@ -98,3 +98,63 @@ async function renderTab(tab, pokemon) {
   else if (tab === "stats") renderStatsTab(tabContent, pokemon);
   else if (tab === "evo") await renderEvoTab(tabContent, pokemon);
 }
+
+function renderMainTab(tabContent, pokemon) {
+  tabContent.innerHTML = `
+    <div class="small">Height: ${pokemon.height} • Weight: ${pokemon.weight}</div>
+    <p class="small">Abilities: ${pokemon.abilities.map(abilityInfo => abilityInfo.ability.name).join(", ")}</p>
+  `;
+}
+
+function renderStatsTab(tabContent, pokemon) {
+  tabContent.innerHTML = "";
+  pokemon.stats.forEach(stat => {
+    let wrap = document.createElement("div");
+    wrap.innerHTML = buildStatHTML(stat);
+    tabContent.appendChild(wrap);
+  });
+}
+
+function buildStatHTML(stat) {
+  let width = Math.min(100, (stat.base_stat / 255) * 100);
+  return `
+    <div class="small">${stat.stat.name}: ${stat.base_stat}</div>
+    <div class="statbar">
+      <div class="statfill" style="width:${width}%;">
+      </div>
+    </div>`;
+}
+
+async function renderEvoTab(tabContent, pokemon) {
+  tabContent.innerHTML = "<div class='small'>load evolution ...</div>";
+  let chain = await fetchEvoChain(pokemon.id);
+  tabContent.innerHTML = "";
+  let evoDiv = document.createElement("div");
+  evoDiv.className = "evos";
+  for (let name of chain) {
+    evoDiv.appendChild(await buildEvoElement(name));
+  }
+  tabContent.appendChild(evoDiv);
+}
+
+async function fetchEvoChain(id) {
+  let speciesResponse = await fetch(`${API_BASE}/pokemon-species/${id}`);
+  let species = await speciesResponse.json();
+  let evoResponse = await fetch(species.evolution_chain.url);
+  let evo = await evoResponse.json();
+  let chain = [], node = evo.chain;
+  while (node) {
+    chain.push(node.species.name);
+    node = node.evolves_to[0];
+  }
+  return chain;
+}
+
+async function buildEvoElement(name) {
+  let evoPokemon = await fetchDetails(name);
+  let img = evoPokemon.sprites.other["official-artwork"].front_default
+      evoPokemon.sprites.front_default;
+  let element = document.createElement("div");
+  element.innerHTML = `<img src="${img}" /><div class="small" style="text-transform:capitalize">${name}</div>`;
+  return element;
+}
