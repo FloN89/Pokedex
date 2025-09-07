@@ -171,12 +171,14 @@ async function buildEvoElement(name) {
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
 async function showTab(tab) {
   let id = currentPokemonId  
       visibleIDs[0];
   let pokemon = await fetchDetails(id);
   renderTab(tab, pokemon);
 }
+
 async function init() {
   await loadList();
   await renderChunk();
