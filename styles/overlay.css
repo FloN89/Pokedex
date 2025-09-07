@@ -10,7 +10,8 @@
     display:flex;
 }
 .overlay-card{
-    width:min(700px,95%);
+    width:600px;
+    height: 500px;
     background:#053662;
     border-radius:8px;
     padding:18px;
@@ -44,7 +45,9 @@
 }
 .overlay-main{
     display:flex;
-    gap:18px;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
 }
 .overlay-main img{
     width:180px;
@@ -52,6 +55,7 @@
 }
 .tabs{
     margin-top:10px;
+    padding: 40px;
 }
 .tab-buttons{
     display:flex;
@@ -81,13 +85,14 @@
 }
 .evos{
     display:flex;
-    gap:12px;
     align-items:center;
+    gap:12px;
+    
 }
 .evos img{
     width:80px;
     height:80px;
 }
 .small{
-    font-size:16px;
+    font-size:18px;
 }

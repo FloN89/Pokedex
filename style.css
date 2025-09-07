@@ -5,6 +5,7 @@
     height: 80px;
     background-color: rgb(5, 5, 85);
     padding: 10px 20px 10px 20px;
+    
 }
 
 .header input{
@@ -34,7 +35,7 @@
 }
 
 .card:hover{
-    box-shadow: 0 0 15px #00f, 0 0 30px #00f, 0 0 45px #00f;
+    box-shadow: 0 0 15px rgb(214, 214, 227), 0 0 15px rgb(149, 149, 205), 0 0 15px rgb(166, 166, 216);
     transform: scale(1.05);
 }
 
@@ -60,6 +61,7 @@
 }
 
 .loadmore{
+    max-width: 1440px;
     display:flex;
     justify-content:center;
     padding:18px;
@@ -82,4 +84,5 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
