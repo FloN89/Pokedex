@@ -17,19 +17,19 @@
 <header class="header">
     <img src="favicon/poke-favicon.png">
     <h1>POKÉDEX</h1>
-    <input id="search" placeholder="search pokemon ...." />
-</header>
+    <input id="search" placeholder="search pokemon ...." oninput="searchHandler(event)"/>
+</header> 
 
 <main>
   <div class="container" id="grid"></div>
-  <div class="loadmore"><button id="loadMore" class="btn">load more</button></div>
+  <div class="loadmore"><button id="loadMore" class="btn"onclick="renderChunk()">load more</button></div>
 </main>
 
-<div id="overlay" class="overlay">
+<div id="overlay" class="overlay"onclick="if(event.target.id==='overlay'){closeOverlay()}">
   <div class="overlay-card" id="overlayCard">
-    <button class="close" id="closeBtn">✕</button>
-    <button class="navbtn left" id="prevBtn">◀</button>
-    <button class="navbtn right" id="nextBtn">▶</button>
+    <button class="close" id="closeBtn"onclick="closeOverlay()">✕</button>
+    <button class="navbtn left" id="prevBtn" onclick="prevNext(-1)">◀</button>
+    <button class="navbtn right" id="nextBtn" onclick="prevNext(1)">▶</button>
     <div class="overlay-main">
       <div id="overlayLeft">
         <img id="overlayImg" src="" alt="pokemon"/>
@@ -39,9 +39,9 @@
         <div id="overlayTypes" class="types"></div>
         <div class="tabs">
           <div class="tab-buttons">
-            <button data-tab="main">Main</button>
-            <button data-tab="stats">Stats</button>
-            <button data-tab="evo">Evo Chain</button>
+            <button data-tab="main" onclick="showTab('main')">Main</button>
+            <button data-tab="stats" onclick="showTab('stats')">Stats</button>
+            <button data-tab="evo" onclick="showTab('evo')">Evo Chain</button>
           </div>
           <div class="tab-content" id="tabContent"></div>
         </div>
