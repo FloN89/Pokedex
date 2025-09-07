@@ -43,15 +43,22 @@ function buildCardHTML(pokemon) {
 async function renderChunk() {
   let grid = document.getElementById("grid");
   let slice = allPokemonList.slice(loadedCount, loadedCount + perPage);
+
   for (let entry of slice) {
-    let id = entry.url.split("/").filter(Boolean).pop();
+    let id = Number(entry.url.split("/").filter(Boolean).pop());
+    if (visibleIDs.includes(id)) {
+      continue;
+    }
+
     let pokemon = await fetchDetails(id);
     grid.appendChild(createCard(pokemon));
-    visibleIDs.push(Number(id));
+    visibleIDs.push(id);
   }
+
   loadedCount += slice.length;
   document.getElementById("loadMore").disabled = loadedCount >= 151;
 }
+
 
 function searchHandler() {
   let query = document.getElementById("search").value.toLowerCase();

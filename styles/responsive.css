@@ -38,6 +38,14 @@
         width: 60px;
         height: 60px;
     }
-    
+    .overlay-card{
+    width:500px;
+    height: 700px;
+    background:#053662;
+    border-radius:8px;
+    padding:18px;
+    position:relative;
+    margin: 2px;
+}
    
 }
