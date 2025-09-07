@@ -49,3 +49,22 @@
 }
    
 }
+
+@media(min-width:1920px){
+    .header{
+    max-width: 1920px;
+    margin:  auto;
+    display: flex;   
+}
+footer{
+    max-width: 1920px;
+    margin:  auto;
+    display: flex;      
+}
+.loadmore{
+    max-width: 1920px;
+    margin:  auto;
+    display:flex;
+    
+}
+}
