@@ -17,28 +17,32 @@ async function fetchDetails(idOrName) {
 }
 
 function createCard(pokemon) {
+  let id = pokemon.id;
+  let name = pokemon.name;
+  let img = pokemon.sprites.other["official-artwork"].front_default 
+            pokemon.sprites.front_default;
+  let typesHtml = pokemon.types
+    .map(t => `<div class="type">${t.type.name}</div>`).join("");
   let card = document.createElement("div");
   card.className = "card";
-  card.dataset.id = pokemon.id;
-  card.innerHTML = buildCardHTML(pokemon);
-  card.addEventListener("click", () => openOverlay(pokemon.id));
+  card.dataset.id = id;
+  card.innerHTML = buildCardHTML(id, name, img, typesHtml);
+  card.addEventListener("click", () => openOverlay(id));
   return card;
 }
 
-function buildCardHTML(pokemon) {
-  let img = pokemon.sprites.other["official-artwork"].front_default
-     pokemon.sprites.front_default;
-  let types = pokemon.types.map(t => `<div class="type">${t.type.name}</div>`).join("");
+function buildCardHTML(id, name, img, typesHtml) {
   return `
-    <img src="${img}" alt="${pokemon.name}" />
+    <img src="${img}" alt="${name}" />
     <div>
       <div>
-        <div class="small">#${pokemon.id.toString().padStart(3, "0")}</div>
-        <div style="font-weight:700;text-transform:capitalize">${pokemon.name}</div>
+        <div class="small">#${id.toString().padStart(3, "0")}</div>
+        <div style="font-weight:700;text-transform:capitalize">${name}</div>
       </div>
-      <div class="types">${types}</div>
+      <div class="types">${typesHtml}</div>
     </div>`;
 }
+
 
 async function renderChunk() {
   let grid = document.getElementById("grid");
@@ -118,19 +122,20 @@ function renderMainTab(tabContent, pokemon) {
 function renderStatsTab(tabContent, pokemon) {
   tabContent.innerHTML = "";
   pokemon.stats.forEach(stat => {
-    let wrap = document.createElement("div");
-    wrap.innerHTML = buildStatHTML(stat);
-    tabContent.appendChild(wrap);
+    let name = stat.stat.name;
+  let value = stat.base_stat;
+  let width = Math.min(100, (value / 255) * 100);
+  let wrap = document.createElement("div");
+  wrap.innerHTML = buildStatHTML(name, value, width);
+  tabContent.appendChild(wrap);
   });
 }
 
-function buildStatHTML(stat) {
-  let width = Math.min(100, (stat.base_stat / 255) * 100);
+function buildStatHTML(name, value, width) {
   return `
-    <div class="small">${stat.stat.name}: ${stat.base_stat}</div>
+    <div class="small">${name}: ${value}</div>
     <div class="statbar">
-      <div class="statfill" style="width:${width}%;">
-      </div>
+      <div class="statfill" style="width:${width}%;"></div>
     </div>`;
 }
 

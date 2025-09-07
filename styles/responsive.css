@@ -34,19 +34,30 @@
         width: 150px;
         
     }
+    .evos{
+       display:flex;
+       align-items:center;
+       justify-content: center;
+       gap:5px;
+    
+    }
     .evos img {
         width: 60px;
         height: 60px;
     }
     .overlay-card{
-    width:500px;
-    height: 700px;
-    background:#053662;
-    border-radius:8px;
-    padding:18px;
-    position:relative;
-    margin: 2px;
-}
+        width:300px;
+        height: 700px;
+        background:#053662;
+        border-radius:8px;
+        padding:18px;
+        position:relative;
+        margin: 2px;
+    }
+    .overlay-card h2 {
+    display: flex;
+    justify-content: center;
+    }
    
 }
 
@@ -55,16 +66,16 @@
     max-width: 1920px;
     margin:  auto;
     display: flex;   
-}
+   }
 footer{
     max-width: 1920px;
     margin:  auto;
     display: flex;      
-}
+   }
 .loadmore{
     max-width: 1920px;
     margin:  auto;
     display:flex;
     
-}
+   }
 }
