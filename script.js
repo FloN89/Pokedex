@@ -45,6 +45,9 @@ function buildCardHTML(id, name, img, typesHtml) {
 
 
 async function renderChunk() {
+  let button = document.getElementById("loadMore");
+  button.disabled = true;
+
   let grid = document.getElementById("grid");
   let slice = allPokemonList.slice(loadedCount, loadedCount + perPage);
 
@@ -53,23 +56,48 @@ async function renderChunk() {
     if (visibleIDs.includes(id)) {
       continue;
     }
-
     let pokemon = await fetchDetails(id);
     grid.appendChild(createCard(pokemon));
     visibleIDs.push(id);
   }
-
   loadedCount += slice.length;
-  document.getElementById("loadMore").disabled = loadedCount >= 151;
+  button.disabled = loadedCount >= 151 ? true : false;
 }
+
 
 
 function searchHandler() {
   let query = document.getElementById("search").value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card => {
-    let name = card.querySelector("div[style]").textContent.toLowerCase();
-    card.style.display = (query.length < 3 || name.includes(query)) ? "block" : "none";
-  });
+  let grid = document.getElementById("grid");
+  let button = document.getElementById("loadMore");
+
+  if (query.length >= 3) {    
+    grid.innerHTML = "";
+    let match = allPokemonList.find(p => p.name.includes(query));
+    if (match) {
+      let id = Number(match.url.split("/").filter(Boolean).pop());
+      fetchDetails(id).then(pokemon => {
+        grid.appendChild(createCard(pokemon));
+      });
+    }
+    button.textContent = "back";
+    button.onclick = () => resetSearch();
+  } else {   
+    resetSearch();
+  }
+}
+
+function resetSearch() {
+  let grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  visibleIDs = [];
+  loadedCount = 0;
+
+  renderChunk();
+
+  let button = document.getElementById("loadMore");
+  button.textContent = "load more";
+  button.onclick = () => renderChunk();
 }
 
 async function openOverlay(id) {
