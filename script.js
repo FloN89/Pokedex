@@ -68,24 +68,36 @@ async function renderChunk() {
 
 function searchHandler() {
   let query = document.getElementById("search").value.toLowerCase();
-  let grid = document.getElementById("grid");
-  let button = document.getElementById("loadMore");
 
-  if (query.length >= 3) {    
-    grid.innerHTML = "";
-    let match = allPokemonList.find(p => p.name.includes(query));
-    if (match) {
-      let id = Number(match.url.split("/").filter(Boolean).pop());
-      fetchDetails(id).then(pokemon => {
-        grid.appendChild(createCard(pokemon));
-      });
-    }
-    button.textContent = "back";
-    button.onclick = () => resetSearch();
-  } else {   
+  if (query.length >= 3) {
+    performSearch(query);
+  } else {
     resetSearch();
   }
 }
+
+function performSearch(query) {
+  let grid = document.getElementById("grid");
+  let button = document.getElementById("loadMore");
+
+  grid.innerHTML = "";
+  let match = allPokemonList.find(p => p.name.includes(query));
+
+  if (match) {
+    let id = Number(match.url.split("/").filter(Boolean).pop());
+    fetchDetails(id).then(pokemon => {
+      grid.appendChild(createCard(pokemon));
+    });
+  } else {
+    grid.innerHTML = `<div class="not-found">
+      Pokemon not found</div>`;
+  }
+
+  button.textContent = "back";
+  button.onclick = () => resetSearch();
+}
+
+
 
 function resetSearch() {
   let grid = document.getElementById("grid");

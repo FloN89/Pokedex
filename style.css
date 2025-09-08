@@ -68,6 +68,10 @@
     justify-content:center;
     padding:18px;
 }
+.not-found {
+    color: red;
+    font-size: 20px;
+}
 
 .btn{
     background:transparent;
